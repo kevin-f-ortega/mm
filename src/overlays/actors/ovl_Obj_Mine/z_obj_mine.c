@@ -17,6 +17,7 @@ void ObjMine_Draw(Actor* thisx, PlayState* play);
 
 s32 Collider_DestroyJntSph(PlayState* play, ColliderJntSph* collider);
 void func_80A82F98(s32 arg0, s32 arg1);
+void func_80A811D0(ObjMine *arg0, s32 arg1);
 
 #if 0
 ActorInit Obj_Mine_InitVars = {
@@ -62,7 +63,10 @@ extern InitChainEntry D_80A845E8[];
 extern UNK_TYPE D_06000030;
 extern UNK_TYPE D_06002068;
 
-#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A811D0.s")
+//#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A811D0.s")
+void func_80A811D0(ObjMine *arg0, s32 arg1) {
+    Math_Vec3s_ToVec3f(&arg0->actor.world.pos, arg0->pathPoint + arg1);
+}
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A8120C.s")
 
