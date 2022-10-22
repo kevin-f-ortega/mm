@@ -9,7 +9,7 @@ typedef void (*ObjMineActionFunc)(struct ObjMine*, PlayState*);
 
 typedef struct ObjMine {
     /* 0x0000 */ Actor actor;
-    /* 0x0144 */ char unk_144[0x60];
+    /* 0x0144 */ ColliderJntSph *collider;
     /* 0x01A4 */ ObjMineActionFunc actionFunc;
     /* 0x01A8 */ char unk_1A8[0x120C];
 } ObjMine; // size = 0x13B4

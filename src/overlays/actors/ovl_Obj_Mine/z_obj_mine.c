@@ -15,6 +15,8 @@ void ObjMine_Destroy(Actor* thisx, PlayState* play);
 void ObjMine_Update(Actor* thisx, PlayState* play);
 void ObjMine_Draw(Actor* thisx, PlayState* play);
 
+s32 Collider_DestroyJntSph(PlayState* play, ColliderJntSph* collider);
+
 #if 0
 ActorInit Obj_Mine_InitVars = {
     ACTOR_OBJ_MINE,
@@ -111,7 +113,10 @@ extern UNK_TYPE D_06002068;
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/ObjMine_Init.s")
 
-#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/ObjMine_Destroy.s")
+
+void ObjMine_Destroy(Actor* thisx, PlayState* play) {
+    Collider_DestroyJntSph(play, THIS->collider);
+}
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A82F84.s")
 
