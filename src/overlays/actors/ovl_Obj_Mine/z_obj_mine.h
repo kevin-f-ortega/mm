@@ -9,9 +9,7 @@ typedef void (*ObjMineActionFunc)(struct ObjMine*, PlayState*);
 
 typedef struct ObjMine {
     /* 0x0000 */ Actor actor;
-    /* 0x0144 */ ColliderJntSph *collider;
-    /* 0x0148 */ void (*actionFunc)(struct ObjMine *, PlayState *);
-    /* 0x014C */ char pad14C[0x18];                 /* maybe part of actionFunc[7]? */
+    /* 0x0144 */ ColliderJntSph collider;
     /* 0x0164 */ ColliderJntSphElement elements;
     /* 0x01A4 */ void (*func_80A82F98)(s32 arg0, s32 arg1);
     /* 0x01A8 */ s32 unk1A8;                        /* inferred */

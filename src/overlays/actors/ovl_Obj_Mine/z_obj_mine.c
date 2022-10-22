@@ -121,7 +121,7 @@ void func_80A811D0(ObjMine *arg0, s32 arg1) {
 //#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/ObjMine_Destroy.s")
 void ObjMine_Destroy(Actor *thisx, PlayState *play) {
     ObjMine *this = THIS;
-    Collider_DestroyJntSph(play, this->collider);
+    Collider_DestroyJntSph(play, &this->collider);
 }
 
 //#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A82F84.s")
