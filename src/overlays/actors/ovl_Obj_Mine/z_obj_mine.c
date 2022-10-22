@@ -113,9 +113,10 @@ extern UNK_TYPE D_06002068;
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/ObjMine_Init.s")
 
-
-void ObjMine_Destroy(Actor* thisx, PlayState* play) {
-    Collider_DestroyJntSph(play, THIS->collider);
+//#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/ObjMine_Destroy.s")
+void ObjMine_Destroy(Actor *thisx, PlayState *play) {
+    ObjMine *this = THIS;
+    Collider_DestroyJntSph(play, &this->collider);
 }
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A82F84.s")
