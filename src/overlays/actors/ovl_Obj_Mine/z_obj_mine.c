@@ -133,6 +133,90 @@ s32 func_80A8120C(Vec3f *arg0, Vec3f *arg1) {
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/ObjMine_Init.s")
 
+#if 0
+void ObjMine_Init(Actor *thisx, PlayState *play) {
+    s32 sp44;
+    s32 sp3C;
+    s32 sp38;
+    s32 sp34;
+    ActorShape *sp30;                               /* compiler-managed */
+    ColliderJntSph **sp2C;
+    ActorShape *temp_a0;
+    ColliderJntSph **temp_a1;
+    Path *temp_v0_2;
+    f32 temp_fv0;
+    f32 temp_fv1;
+    s16 temp_v0;
+    s32 temp_v0_3;
+    ObjMine *this = THIS;
+
+    temp_v0 = this->actor.params;
+    sp44 = temp_v0 & 0xFF;
+    sp38 = (temp_v0 >> 0xC) & 3;
+    Actor_ProcessInitChain(&this->actor, D_80A845E8);
+    this->actor.shape.rot.z = 0;
+    this->actor.world.rot.z = 0;
+    temp_a1 = &this->collider;
+    sp2C = temp_a1;
+    Collider_InitJntSph(play, (ColliderJntSph *) temp_a1);
+    Collider_SetJntSph(play, (ColliderJntSph *) temp_a1, &this->actor, &D_80A84594, &this->elements);
+    temp_a0 = &this->actor.shape;
+    if (sp38 == 0) {
+        sp30 = temp_a0;
+        ActorShape_Init(temp_a0, 0.0f, ActorShadow_DrawCircle, 45.0f);
+        this->actor.shape.shadowAlpha = 0x8C;
+        this->unk1A8 = D_80A845A4[((s16) this->actor.params >> 8) & 7];
+        if (sp44 == 0xFF) {
+            func_80A82F84(this);
+        } else {
+            this->unk1B0 = 0;
+            temp_v0_2 = &play->setupPathList[sp44];
+            this->unk1AC = temp_v0_2->count - 1;
+            this->pathPoint = Lib_SegmentedToVirtual(temp_v0_2->points);
+            func_80A811D0(this, this->unk1B0);
+            func_80A82FA8(this);
+        }
+        Matrix_SetTranslateRotateYXZ(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z, &sp30->rot);
+        Matrix_Scale(this->actor.scale.x, this->actor.scale.y, this->actor.scale.z, MTXMODE_APPLY);
+        Collider_UpdateSpheres(0, (ColliderJntSph *) sp2C);
+        this->actor.floorHeight = BgCheck_EntityRaycastFloor5(&play->colCtx, &this->actor.floorPoly, &sp3C, &this->actor, &this->actor.world.pos);
+        return;
+    }
+    temp_v0_3 = this->actor.params & 0x3F;
+    temp_fv1 = (f32) temp_v0_3;
+    this->actor.update = func_80A83E7C;
+    temp_fv0 = (temp_fv1 * 21.0f) + 150.0f;
+    this->actor.uncullZoneScale = temp_fv0;
+    this->actor.uncullZoneDownward = temp_fv0;
+    sp30 = temp_fv1;
+    sp34 = temp_v0_3;
+    ActorShape_Init(&this->actor.shape, 0.0f, ActorShadow_DrawCircle, 45.0f);
+    this->actor.shape.shadowAlpha = 0x8C;
+    if (sp38 == 1) {
+        this->actor.draw = func_80A84088;
+        func_80A81868(this, sp34);
+        this->actor.world.pos.y = (-10.0f - (sp30 * 12.0f)) + this->actor.home.pos.y;
+        func_80A819A4(this, sp34);
+        func_800B4AEC(play, &this->actor, 0.0f);
+        if (sp34 == 0) {
+            func_80A83A74(this);
+            return;
+        }
+        func_80A832BC(this);
+        return;
+    }
+    this->actor.draw = func_80A84338;
+    func_80A81B7C(this, sp34);
+    this->actor.world.pos.y = (sp30 * 12.0f) + 10.0f + this->actor.home.pos.y;
+    func_80A81D70(this, sp34);
+    if (sp34 == 0) {
+        func_80A83CEC(this);
+        return;
+    }
+    func_80A83B14(this);
+}
+#endif
+
 //#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/ObjMine_Destroy.s")
 void ObjMine_Destroy(Actor *thisx, PlayState *play) {
     ObjMine *this = THIS;
@@ -150,8 +234,84 @@ void func_80A82F98(s32 arg0, s32 arg1) {
 }
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A82FA8.s")
+#if 0
+extern ? func_80A82FC8;
+
+void func_80A82FA8(void *arg0) {
+    arg0->unk4 = (s32) (arg0->unk4 | 0x10);
+    arg0->unk1A4 = &func_80A82FC8;
+}
+#endif
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A82FC8.s")
+#if 0
+static Vec3f D_80A845D0[2] = { { 0.0f, 1.0f, 0.0f }, { 0.0f, 0.0f, 1.0f } };
+
+void func_80A82FC8(Actor *arg0, s32 arg1) {
+    Vec3f spA0;
+    f32 sp9C;
+    s32 sp90;
+    Vec3f sp84;
+    Vec3f sp78;
+    MtxF sp38;
+    Vec3f *sp2C;
+    Vec3f *sp28;
+    Vec3f *temp_a1;
+    Vec3f *temp_a2;
+    f32 temp_fv0;
+    f32 temp_fv0_2;
+    f32 temp_fv1;
+    f32 var_fa0;
+    f32 var_fv0;
+    s32 var_a1;
+
+    Math_Vec3s_ToVec3f(&spA0, arg0->unk1B4 + (arg0->unk1B0 * 6) + 6);
+    temp_a1 = arg0 + 0x24;
+    temp_a2 = arg0 + 0x64;
+    sp2C = temp_a2;
+    sp28 = temp_a1;
+    Math_Vec3f_Diff(&spA0, temp_a1, temp_a2);
+    temp_fv0 = Math3D_Vec3fMagnitude(sp2C);
+    temp_fv1 = arg0->unk1A8;
+    if ((temp_fv0 < (temp_fv1 * 8.0f)) && (temp_fv1 > 2.0f)) {
+        var_fv0 = ((temp_fv1 - 2.0f) * 0.1f) + 2.0f;
+        var_fa0 = temp_fv1 * 0.03f;
+    } else {
+        var_fv0 = temp_fv1;
+        var_fa0 = temp_fv1 * 0.16f;
+    }
+    sp9C = temp_fv0;
+    Math_StepToF(arg0 + 0x70, var_fv0, var_fa0);
+    temp_fv0_2 = arg0->speedXZ;
+    if ((temp_fv0_2 + 0.05f) < temp_fv0) {
+        Math_Vec3f_Scale(sp2C, temp_fv0_2 / temp_fv0);
+        arg0->world.pos.x += arg0->velocity.x;
+        arg0->world.pos.y += arg0->velocity.y;
+        arg0->world.pos.z += arg0->velocity.z;
+    } else {
+        var_a1 = arg0->unk1B0 + 1;
+        arg0->unk1B0 = var_a1;
+        arg0->speedXZ = temp_fv0_2 * 0.4f;
+        if (var_a1 >= arg0->unk1AC) {
+            arg0->unk1B0 = 0;
+            var_a1 = 0;
+        }
+        func_80A811D0(arg0, var_a1);
+    }
+    arg0->floorHeight = BgCheck_EntityRaycastFloor5(arg1 + 0x830, &arg0->floorPoly, &sp90, arg0, sp28);
+    if (arg0->flags & 0x40) {
+        Math3D_CrossProduct(D_80A845D0, sp2C, &sp78);
+        if (func_80A8120C(&sp78, &sp84) != 0) {
+            Matrix_RotateAxisF(arg0->speedXZ * 0.03125f, &sp84, MTXMODE_NEW);
+            Matrix_RotateYS(arg0->shape.rot.y, MTXMODE_APPLY);
+            Matrix_RotateXS(arg0->shape.rot.x, MTXMODE_APPLY);
+            Matrix_RotateZS(arg0->shape.rot.z, MTXMODE_APPLY);
+            Matrix_Get(&sp38);
+            Matrix_MtxFToYXZRot(&sp38, &arg0->shape.rot, 0);
+        }
+    }
+}
+#endif
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A83214.s")
 
