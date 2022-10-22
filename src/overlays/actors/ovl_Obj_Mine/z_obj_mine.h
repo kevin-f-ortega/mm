@@ -9,9 +9,16 @@ typedef void (*ObjMineActionFunc)(struct ObjMine*, PlayState*);
 
 typedef struct ObjMine {
     /* 0x0000 */ Actor actor;
-    /* 0x0144 */ ColliderJntSph collider;
-    /* 0x01A4 */ ObjMineActionFunc actionFunc;
-    /* 0x01A8 */ char unk_1A8[0x120C];
-} ObjMine; // size = 0x13B4
+    /* 0x0144 */ ColliderJntSph *collider;
+    /* 0x0148 */ void (*actionFunc)(struct ObjMine *, PlayState *);
+    /* 0x014C */ char pad14C[0x18];                 /* maybe part of actionFunc[7]? */
+    /* 0x0164 */ ColliderJntSphElement unk164;      /* inferred */
+    /* 0x01A4 */ void (*func_80A82F98)(s32 arg0, s32 arg1);
+    /* 0x01A8 */ s32 unk1A8;                        /* inferred */
+    /* 0x01AC */ s32 unk1AC;                        /* inferred */
+    /* 0x01B0 */ s32 unk1B0;                        /* inferred */
+    /* 0x01B4 */ void *unk1B4;                      /* inferred */
+    /* 0x01B8 */ char pad1B8[0x11A0];               /* maybe part of unk1B4[0x469]? */
+} ObjMine;                                          /* size = 0x1358 */
 
 #endif // Z_OBJ_MINE_H
