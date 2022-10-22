@@ -18,6 +18,7 @@ void ObjMine_Draw(Actor* thisx, PlayState* play);
 s32 Collider_DestroyJntSph(PlayState* play, ColliderJntSph* collider);
 void func_80A82F98(s32 arg0, s32 arg1);
 void func_80A811D0(ObjMine *arg0, s32 arg1);
+s32 func_80A8120C(Vec3f *arg0, Vec3f *arg1);
 
 #if 0
 ActorInit Obj_Mine_InitVars = {
@@ -68,7 +69,21 @@ void func_80A811D0(ObjMine *arg0, s32 arg1) {
     Math_Vec3s_ToVec3f(&arg0->actor.world.pos, arg0->pathPoint + arg1);
 }
 
-#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A8120C.s")
+//#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A8120C.s")
+s32 func_80A8120C(Vec3f *arg0, Vec3f *arg1) {
+    f32 temp_fv0;
+    f32 temp_fv1;
+
+    temp_fv0 = Math3D_Vec3fMagnitude(arg0);
+    if (temp_fv0 < 0.001f) {
+        return 0;
+    }
+    temp_fv1 = 1.0f / temp_fv0;
+    arg1->x = (f32) (arg0->x * temp_fv1);
+    arg1->y = (f32) (arg0->y * temp_fv1);
+    arg1->z = (f32) (arg0->z * temp_fv1);
+    return 1;
+}
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A81288.s")
 
