@@ -14,9 +14,10 @@ void ObjMine_Init(Actor* thisx, PlayState* play);
 void ObjMine_Destroy(Actor* thisx, PlayState* play);
 void ObjMine_Update(Actor* thisx, PlayState* play);
 void ObjMine_Draw(Actor* thisx, PlayState* play);
+extern void func_80A82FC8(Actor *thisx, s32 arg1);
 
 s32 Collider_DestroyJntSph(PlayState* play, ColliderJntSph* collider);
-void func_80A82F98(s32 arg0, s32 arg1);
+void func_80A82F98(Actor *thisx, s32 arg1);
 void func_80A811D0(ObjMine *arg0, s32 arg1);
 s32 func_80A8120C(Vec3f *arg0, Vec3f *arg1);
 
@@ -225,23 +226,20 @@ void ObjMine_Destroy(Actor *thisx, PlayState *play) {
 
 //#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A82F84.s")
 void func_80A82F84(ObjMine *arg0) {
-    arg0->func_80A82F98 = &func_80A82F98;
+    arg0->func_1A4 = &func_80A82F98;
 }
 
 //#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A82F98.s")
-void func_80A82F98(s32 arg0, s32 arg1) {
+void func_80A82F98(Actor *thisx, s32 arg1) {
 
 }
 
-#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A82FA8.s")
-#if 0
-extern ? func_80A82FC8;
-
-void func_80A82FA8(void *arg0) {
-    arg0->unk4 = (s32) (arg0->unk4 | 0x10);
-    arg0->unk1A4 = &func_80A82FC8;
+//#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A82FA8.s")
+void func_80A82FA8(Actor *thisx) {
+    ObjMine *this = THIS;
+    this->actor.flags = (s32) (this->actor.flags | 0x10);
+    this->func_1A4 = &func_80A82FC8;
 }
-#endif
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_Obj_Mine/func_80A82FC8.s")
 #if 0

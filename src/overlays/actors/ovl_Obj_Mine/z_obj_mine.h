@@ -11,7 +11,7 @@ typedef struct ObjMine {
     /* 0x0000 */ Actor actor;
     /* 0x0144 */ ColliderJntSph collider;
     /* 0x0164 */ ColliderJntSphElement elements;
-    /* 0x01A4 */ void (*func_80A82F98)(s32 arg0, s32 arg1);
+    /* 0x01A4 */ void (*func_1A4)(Actor *thisx, s32 arg1);
     /* 0x01A8 */ s32 unk1A8;                        /* inferred */
     /* 0x01AC */ s32 unk1AC;                        /* inferred */
     /* 0x01B0 */ s32 unk1B0;                        /* inferred */
