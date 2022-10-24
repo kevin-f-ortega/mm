@@ -10,7 +10,7 @@ typedef void (*EnKaizokuActionFunc)(struct EnKaizoku*, PlayState*);
 typedef struct EnKaizoku {
     /* 0x000 */ Actor actor;
     /* 0x144 */ char pad144[4];
-    /* 0x148 */ SkelAnime unk148;                   /* inferred */
+    /* 0x148 */ SkelAnime skelAnime;                   /* inferred */
     /* 0x18C */ char pad18C[0x120];                 /* maybe part of unk148[5]? */
     /* 0x2AC */ EnKaizokuActionFunc actionFunc;
     /* 0x2B0 */ s16 unk2B0;                         /* inferred */

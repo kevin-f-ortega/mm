@@ -194,10 +194,10 @@ void EnKaizoku_Update(Actor *thisx, PlayState *play) {
     s16 temp_v0_4;
     s16 temp_v0_6;
     s32 temp_v0_5;
-    EnKaizoku *this = (EnKaizoku *) thisx;
+    EnKaizoku *this = THIS;
 
     if (this->unk2D8 == 0) {
-        SkelAnime_Update(&this->unk148);
+        SkelAnime_Update(&this->skelAnime);
     }
     if (this->unk2B0 != 0) {
         func_80B85900(this);
