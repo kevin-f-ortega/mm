@@ -98,7 +98,8 @@ void EnKaizoku_Destroy(Actor *thisx, PlayState *play) {
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/func_80B85858.s")
 
-//#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/func_80B85900.s")
+#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/func_80B85900.s")
+#if 0
 void func_80B85900(void *arg0) {
     s16 temp_v0;
     s16 temp_v0_2;
@@ -127,6 +128,7 @@ void func_80B85900(void *arg0) {
         arg0->unk57A = 0;
     }
 }
+#endif
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/func_80B85A00.s")
 
