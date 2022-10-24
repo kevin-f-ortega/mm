@@ -98,7 +98,35 @@ void EnKaizoku_Destroy(Actor *thisx, PlayState *play) {
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/func_80B85858.s")
 
-#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/func_80B85900.s")
+//#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/func_80B85900.s")
+void func_80B85900(void *arg0) {
+    s16 temp_v0;
+    s16 temp_v0_2;
+    s16 var_v1;
+
+    temp_v0 = arg0->unk2B0;
+    if (temp_v0 == 1) {
+        arg0->unk57A = (s16) (s32) (Math_SinS((s16) (arg0->unk2B4 * 0x1068)) * 8920.0f);
+        return;
+    }
+    if (temp_v0 != 0xD) {
+        if ((temp_v0 == 9) || (temp_v0 == 0xB)) {
+            Math_SmoothStepToS(arg0 + 0x57A, (s16) (arg0->unk92 - arg0->unkBE), 1, 0x1F4, (s16) 0);
+            temp_v0_2 = arg0->unk57A;
+            if (temp_v0_2 < -0x256F) {
+                arg0->unk57A = -0x256F;
+                return;
+            }
+            var_v1 = temp_v0_2;
+            if (temp_v0_2 >= 0x2570) {
+                var_v1 = 0x256F;
+            }
+            arg0->unk57A = var_v1;
+            return;
+        }
+        arg0->unk57A = 0;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/func_80B85A00.s")
 
@@ -178,7 +206,8 @@ void EnKaizoku_Destroy(Actor *thisx, PlayState *play) {
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/func_80B89A08.s")
 
-//#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/EnKaizoku_Update.s")
+#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/EnKaizoku_Update.s")
+#if 0
 ? func_80B85900(EnKaizoku *);                       /* extern */
 ? func_80B89A08(EnKaizoku *, PlayState *);          /* extern */
 
@@ -265,6 +294,7 @@ void EnKaizoku_Update(Actor *thisx, PlayState *play) {
         CollisionCheck_SetAT(play, sp2C, &this->unk420);
     }
 }
+#endif
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/func_80B8A318.s")
 
