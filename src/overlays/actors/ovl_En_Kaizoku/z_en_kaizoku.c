@@ -87,7 +87,14 @@ extern UNK_TYPE D_060058B8;
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/EnKaizoku_Init.s")
 
-#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/EnKaizoku_Destroy.s")
+//#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/EnKaizoku_Destroy.s")
+void EnKaizoku_Destroy(Actor *thisx, PlayState *play) {
+    EnKaizoku *this = THIS;
+    Effect_Destroy(play, this->unk3D0);
+    Collider_DestroyCylinder(play, &this->unk3D4);
+    Collider_DestroyQuad(play, &this->unk420);
+    Audio_RestorePrevBgm();
+}
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/func_80B85858.s")
 
