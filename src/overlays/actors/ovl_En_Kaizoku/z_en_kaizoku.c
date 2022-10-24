@@ -178,7 +178,93 @@ void EnKaizoku_Destroy(Actor *thisx, PlayState *play) {
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/func_80B89A08.s")
 
-#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/EnKaizoku_Update.s")
+//#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/EnKaizoku_Update.s")
+? func_80B85900(EnKaizoku *);                       /* extern */
+? func_80B89A08(EnKaizoku *, PlayState *);          /* extern */
+
+void EnKaizoku_Update(Actor *thisx, PlayState *play) {
+    Vec3f sp34;
+    CollisionCheckContext *sp2C;
+    ColliderCylinder *sp28;
+    ColliderCylinder *temp_a1;
+    CollisionCheckContext *temp_a1_2;
+    s16 temp_v0;
+    s16 temp_v0_2;
+    s16 temp_v0_3;
+    s16 temp_v0_4;
+    s16 temp_v0_6;
+    s32 temp_v0_5;
+    EnKaizoku *this = (EnKaizoku *) thisx;
+
+    if (this->unk2D8 == 0) {
+        SkelAnime_Update(&this->unk148);
+    }
+    if (this->unk2B0 != 0) {
+        func_80B85900(this);
+    }
+    temp_v0 = this->unk2CE;
+    if (temp_v0 != 0) {
+        this->unk2CE = temp_v0 - 1;
+    }
+    temp_v0_2 = this->unk2B2;
+    if (temp_v0_2 != 0) {
+        this->unk2B2 = temp_v0_2 - 1;
+    }
+    temp_v0_3 = this->unk2B4;
+    if (temp_v0_3 != 0) {
+        this->unk2B4 = temp_v0_3 - 1;
+    }
+    temp_v0_4 = this->unk2B6;
+    if (temp_v0_4 != 0) {
+        this->unk2B6 = temp_v0_4 - 1;
+    }
+    temp_v0_5 = this->unk598;
+    if (temp_v0_5 != 0) {
+        this->unk598 = temp_v0_5 - 1;
+    }
+    temp_v0_6 = this->unk2B8;
+    if (temp_v0_6 != 0) {
+        this->unk2B8 = temp_v0_6 - 1;
+    }
+    this->actionFunc(this, play);
+    Actor_MoveWithGravity(&this->actor);
+    if (this->unk2B0 != 0) {
+        func_80B89A08(this, play);
+    }
+    if (this->unk2B0 != 0) {
+        Actor_SetFocus(&this->actor, 60.0f);
+    }
+    Actor_SetScale(&this->actor, 0.0125f);
+    if (this->unk2CE == 0) {
+        this->unk2CC += 1;
+        if (this->unk2CC >= 4) {
+            this->unk2CC = 0;
+            this->unk2CE = Rand_S16Offset(0x14, 0x3C);
+        }
+    }
+    if (this->actor.bgCheckFlags & 1) {
+        Matrix_RotateYS((s16) (this->actor.shape.rot.y + this->unk_2F4), MTXMODE_NEW);
+        Matrix_MultVecZ(this->unk_2F0, &sp34);
+        this->actor.world.pos.x += this->unk3C4 + (bitwise f32) sp34;
+        this->actor.world.pos.z += this->unk3CC + sp34.z;
+        Math_ApproachZeroF(&this->unk3C4, 1.0f, 2.0f);
+        Math_ApproachZeroF(&this->unk3CC, 1.0f, 2.0f);
+        Math_ApproachZeroF(&this->unk_2F0, 1.0f, 5.0f);
+    }
+    Actor_UpdateBgCheckInfo(play, &this->actor, 35.0f, 40.0f, 35.0f, 0x1FU);
+    temp_a1 = &this->unk3D4;
+    sp28 = temp_a1;
+    Collider_UpdateCylinder(&this->actor, temp_a1);
+    temp_a1_2 = &play->colChkCtx;
+    sp2C = temp_a1_2;
+    CollisionCheck_SetOC(play, temp_a1_2, &sp28->base);
+    if ((this->unk2D0 < 2) && (this->unk2B0 != 0)) {
+        CollisionCheck_SetAC(play, sp2C, &sp28->base);
+    }
+    if (this->unk2D2 > 0) {
+        CollisionCheck_SetAT(play, sp2C, &this->unk420);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Kaizoku/func_80B8A318.s")
 
